@@ -28,8 +28,7 @@ fn mul_u256(a: U256, b: U256) -> Result<U256, CurveError> {
 }
 
 fn narrow_u256(value: U256) -> Result<u128, CurveError> {
-    let mut buf = [0u8; 32];
-    value.to_big_endian(&mut buf);
+    let buf = value.to_big_endian();
     let (hi, lo) = buf.split_at(16);
     if hi.iter().any(|&b| b != 0) {
         Err(CurveError::InvalidConfig)
